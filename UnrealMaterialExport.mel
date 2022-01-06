@@ -1,0 +1,18 @@
+select -cl  ;
+string $materials[] = `ls -materials -long`;
+int $matCount = size($materials);
+print $matCount;
+float $tmp = sqrt($matCount);
+int $dim = ceil($tmp);
+print $dim;
+string $objs[] = `polyPlane -w 1 -h 1 -sx $dim -sy $dim -ax 0 1 0 -cuv 2 -ch 1`;
+string $obj = $objs[0];
+DeleteHistory;
+string $materials[] = `ls -materials -long`;
+int $i = 0;
+for($mat in $materials)
+{
+    select -r ($obj+".f["+$i+"]");
+    hyperShade -assign $mat;
+    $i = $i+1;
+}
