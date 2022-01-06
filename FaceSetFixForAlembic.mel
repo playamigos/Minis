@@ -3,7 +3,19 @@ for($mat in $materials)
 {
     hyperShade -objects $mat;
     ConvertSelectionToFaces;
-    hyperShade -assign "lambert1"; 
-    ConvertSelectionToFaces;
-    hyperShade -assign $mat; 
+    string $sels[] = `ls -sl`;
+    if(size($sels) > 0)
+    {
+        hyperShade -assign "lambert1"; 
+        ConvertSelectionToFaces;
+        hyperShade -assign $mat; 
+    }    
+    string $sgs[] = `listConnections -source true -type shadingEngine $mat`;
+    
+    if(!`attributeExists "AbcFacesetName" $sgs[0]`)
+    {
+        addAttr -ln "AbcFacesetName"  -dt "string"  $sgs[0];
+        setAttr -e-keyable true ($sgs[0]+".AbcFacesetName");
+    }
+    setAttr ($sgs[0]+".AbcFacesetName") -type "string" ($mat);    
 }
