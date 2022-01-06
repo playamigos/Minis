@@ -1,0 +1,9 @@
+string $materials[] = `ls -materials -long`;
+for($mat in $materials)
+{
+    hyperShade -objects $mat;
+    ConvertSelectionToFaces;
+    hyperShade -assign "lambert1"; 
+    ConvertSelectionToFaces;
+    hyperShade -assign $mat; 
+}
