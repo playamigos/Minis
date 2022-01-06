@@ -1,0 +1,18 @@
+string $sels[] = `ls -sl`;
+string $camToExport = $sels[0];
+string $objs[] = `camera -n "UnrealExportCam"`;
+string $cam = $objs[0];
+select -r $cam;
+select -add $camToExport;
+parent;
+select -r $cam;
+ResetTransformations;
+setAttr ($cam+".rotateY") 90;
+
+select -r $cam;
+parent -w;
+
+select -r $camToExport;
+select -add $cam;
+doCreateParentConstraintArgList 1 { "1","0","0","0","0","0","0","0","1","","1" };
+parentConstraint -mo -weight 1;
