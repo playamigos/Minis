@@ -1,0 +1,15 @@
+select -hi;
+string $sels[] = `ls -sl`;
+string $buffer[];
+for($sel in $sels)
+{
+    clear $buffer;
+    $numTokens = `tokenize $sel ":" $buffer`;
+    string $nam = $buffer[1];
+    select -r $nam;
+    select -add $sel;
+    delete `parentConstraint`;
+    //select -r $nam;
+    //select -add $sel;
+    //delete `scaleConstraint`;  
+}
