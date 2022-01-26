@@ -1,0 +1,12 @@
+string $BS = "asFaceBS";
+     
+int $shapeCount= ` blendShape -q -weightCount $BS`;
+  
+string $allBlend[] = `listAttr -m -st "weight" $BS`; 
+  
+for ($sh=0;$sh< $shapeCount;$sh++)
+  
+{
+    //print $allBlend[$sh];
+    blendShapeRenameTargetAlias asFaceBS $sh ("adv_"+$allBlend[$sh]);
+}
